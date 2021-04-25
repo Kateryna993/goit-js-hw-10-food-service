@@ -6,51 +6,35 @@ const menuRef = document.querySelector('.js-menu');
 const page = document.querySelector('body');
 const themeSwitcher = document.querySelector('#theme-switch-toggle');
 
-// local storage
+// local storage and change theme
 
 const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
 };
 
-// const setTheme = localStorage.setItem('theme', JSON.stringify(Theme));
-
-// console.log(setTheme);
-
 const savedTheme = localStorage.getItem('theme');
 
-console.log(savedTheme);
+if (savedTheme === Theme.DARK) {
+  page.classList.add(Theme.DARK);
+  themeSwitcher.checked = true;
+} 
 
-const handlingTheme = themeChecker(savedTheme);
+function themeHandler() {
+  // const checked = event.target.checked;
 
-function themeChecker(savedTheme) {
-  if (savedTheme === 'light-theme') {
-    page.classList.add('light-theme');
-    themeSwitcher.checked = false;
-  } else if (savedTheme === 'dark-theme') {
-    page.classList.add('dark-theme');
-    themeSwitcher.checked = true;
+  if (themeSwitcher.checked) {
+    page.classList.add(Theme.DARK);
+    page.classList.remove(Theme.LIGHT);
+    localStorage.setItem('theme', Theme.DARK);
   } else {
-    page.classList.add('light-theme');
+    page.classList.add(Theme.LIGHT);
+    page.classList.remove(Theme.DARK);
+    localStorage.setItem('theme', Theme.LIGHT);
   }
 }
 
 themeSwitcher.addEventListener('change', themeHandler);
-
-function themeHandler(event) {
-  const checked = event.target.checked;
-
-  if (checked) {
-    page.classList.remove('light-theme');
-    page.classList.add('dark-theme');
-  } else {
-      
-    page.classList.remove('dark-theme');
-    page.classList.add('light-theme');
-  }
-}
-
-
 
 // markup for menu cards
 

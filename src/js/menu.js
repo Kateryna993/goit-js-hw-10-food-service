@@ -1,34 +1,31 @@
 import cards from './menu.json';
-
 import templateCards from '../templates/menu.hbs';
 
 const menuRef = document.querySelector('.js-menu');
 const page = document.querySelector('body');
 const themeSwitcher = document.querySelector('#theme-switch-toggle');
 
-// local storage and change theme
+// saved to local storage and changed theme
 
 const Theme = {
   LIGHT: 'light-theme',
   DARK: 'dark-theme',
 };
 
-const savedTheme = localStorage.getItem('theme');
+const getTheme = localStorage.getItem('theme');
 
-if (savedTheme === Theme.DARK) {
+// console.log('theme', Theme.DARK);
+
+if (getTheme === Theme.DARK) {
   page.classList.add(Theme.DARK);
   themeSwitcher.checked = true;
 } 
 
 function themeHandler() {
-  // const checked = event.target.checked;
-
   if (themeSwitcher.checked) {
     page.classList.add(Theme.DARK);
-    page.classList.remove(Theme.LIGHT);
     localStorage.setItem('theme', Theme.DARK);
   } else {
-    page.classList.add(Theme.LIGHT);
     page.classList.remove(Theme.DARK);
     localStorage.setItem('theme', Theme.LIGHT);
   }
